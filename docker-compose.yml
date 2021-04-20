@@ -1,0 +1,48 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql_data:/docker-entrypoint-initdb.d
+      - ./mysql_conf/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./logs/mysql:/var/log/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=movie_db
+      - TZ=Asia/Tokyo
+    networks:
+      app_net:
+        ipv4_address: 172.16.100.11
+
+  express:
+    image: node:alpine
+    container_name: node_express
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    command: [sh, -c, npm install && npm start]
+    ports:
+      - 3000:3000
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    networks:
+      app_net:
+        ipv4_address: 172.16.100.10
+  redis:
+    image: redis
+    volumes:
+      - ./redis_data:/data
+    networks:
+      app_net:
+        ipv4_address: 172.16.100.12
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.100.0/24
