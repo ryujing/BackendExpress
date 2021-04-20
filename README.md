@@ -1,11 +1,11 @@
-#backendtask
+# backendtask
 
-##docker-composeで環境を構築
+## docker-composeで環境を構築
 make start
 を実行する事で、express, mysql, redisのdokcerが構築される。
 
 
-##dockerの停止・再起動
+## dockerの停止・再起動
 make kill
 または、
 
@@ -15,7 +15,7 @@ make down
 make restart
 を実行。
 
-##TEST方法
+## TEST方法
 ※ レスポンス（JSON）はjqを利用し、見やすくするとよい。
 
 1. GET /movies
@@ -54,12 +54,12 @@ curl -b connect.sid=s%3AdEt9Nn5rMJWOnIn04f92L7PSH3rAbHbf.rBrhTLVVvXt8osH%2B3nsl%
 ## 振り返り
 1週間の期間内で、実際に稼働できた時間は８時間程度で、docker（MySQL）の不安定で時間を使ってしまった。 課題は提出したとして、せっかく作ったので改善したい。
 
-・パラメータのバリデーションが甘い。
-・ORMを使う
-・ルーターは別ファイルに切り出す。
-・セッションの再作成に対応する。
-・WEBサーバーをフロントに置く。
-・フロントエンドに繋げてみる。
-・定数はenvに切り出す。
+1. パラメータのバリデーションが甘い。
+2. ORMを使う
+3. ルーターは別ファイルに切り出す。
+4. セッションの再作成に対応する。
+5. WEBサーバーをフロントに置く。
+6. フロントエンドに繋げてみる。
+7. 定数はenvに切り出す。
 
 上記はせめてやっておきたい所でした。
